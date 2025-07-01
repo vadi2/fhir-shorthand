@@ -1,51 +1,51 @@
 {%include styles.html%}
 
 <br/>
-<span style="background-color: LightYellow;">NOTE: Information on this page is [informative content](https://hl7.org/fhir/versions.html#std-process).</span>
+<span style="background-color: LightYellow;">ПРИМЕЧАНИЕ: Информация на этой странице является [информативным содержанием](https://hl7.org/fhir/versions.html#std-process).</span>
 <br/>
 
 FHIR Shorthand (FSH) — это доменно-специфический язык для определения артефактов FHIR, используемых при создании руководств по внедрению FHIR (IG). Язык специально разработан для этой цели, он прост и компактен, и позволяет автору выражать свои намерения с меньшим беспокойством о базовой механике FHIR. FSH можно создавать и обновлять с помощью любого текстового редактора, и поскольку это текст, он позволяет вести распределенную, командную разработку с использованием инструментов управления исходным кодом, таких как GitHub.
 
-### FHIR Shorthand Language Basics
+### Основы языка FHIR Shorthand
 
-The complete FSH language is formally described in the [FHIR Shorthand Language Reference](reference.html). Here we present just enough to get a taste of FSH.
+Полный язык FSH формально описан в [Справочнике по языку FHIR Shorthand](reference.html). Здесь мы представляем лишь основы, чтобы познакомиться с FSH.
 
-* **Grammar**: [FSH has a formal grammar](https://github.com/FHIR/sushi/tree/v3.8.0/antlr/src/main/antlr) defined in [ANTLR](https://www.antlr.org/).
-* **Data types**: The primitive and complex data types and value formats in FSH are identical to the primitive types and value formats in [FHIR R4](https://hl7.org/fhir/R4/datatypes.html#2.24.0) and [FHIR R5](https://hl7.org/fhir/R5/datatypes.html#2.1.28.0). The types available for use when authoring are dependent upon the targeted version of FHIR.
-* **Whitespace**: Repeated whitespace has meaning within FSH files only within string literals and when used for [indenting rules](reference.html#indented-rules). In all other contexts, repeated whitespace is not meaningful.
-* **Comments**: FSH uses `//` as leading delimiter for single-line comments, and the pair `/*`  `*/` to delimit multiple line comments.
-* **Asterisk Character**: A leading asterisk is used to denote FSH rules. For example, here is a rule to set an element named `active` to `true`:
+* **Грамматика**: [FSH имеет формальную грамматику](https://github.com/FHIR/sushi/tree/v3.8.0/antlr/src/main/antlr), определенную в [ANTLR](https://www.antlr.org/).
+* **Типы данных**: Примитивные и сложные типы данных и форматы значений в FSH идентичны примитивным типам и форматам значений в [FHIR R4](https://hl7.org/fhir/R4/datatypes.html#2.24.0) и [FHIR R5](https://hl7.org/fhir/R5/datatypes.html#2.1.28.0). Доступные для использования типы при создании зависят от версии FHIR.
+* **Пробельные символы**: Повторяющиеся пробельные символы имеют значение в файлах FSH только внутри строковых литералов и при использовании для [отступов в правилах](reference.html#indented-rules). Во всех остальных контекстах повторяющиеся пробельные символы не имеют значения.
+* **Комментарии**: FSH использует `//` как начальный разделитель для однострочных комментариев и пару `/*` `*/` для разделения многострочных комментариев.
+* **Символ звездочки**: Начальная звездочка используется для обозначения правил FSH. Например, вот правило для установки элемента с именем `active` в значение `true`:
 
   ```
   * active = true
   ```
 
-* **Escape Character**: FSH uses the backslash as the escape character in string literals. For example, use `\"` to embed a quotation mark in a string.
-* **Caret Character**: FSH uses [caret syntax](reference.html#caret-paths) to directly reference the definitional structure associated with an item. When defining a profile, the caret character `^` (also called circumflex) allows you to refer to elements in the StructureDefinition. For example, to set the element `StructureDefinition.experimental`:
+* **Символ экранирования**: FSH использует обратную косую черту как символ экранирования в строковых литералах. Например, используйте `\"` для встраивания кавычки в строку.
+* **Символ крышки**: FSH использует [синтаксис крышки](reference.html#caret-paths) для прямой ссылки на структуру определения, связанную с элементом. При определении профиля, символ крышки `^` позволяет ссылаться на элементы в StructureDefinition. Например, для установки элемента `StructureDefinition.experimental`:
 
   ```
   * ^experimental = false
   ```
 
-* **Aliases**: To improve readability, FSH allows the user to define aliases for URLs and object identifiers (OIDs). Once defined anywhere in a FSH project, the alias can be used most places a URL or OID is required or accepted. See [Defining Aliases](reference.html#defining-aliases) for details. By convention, aliases often begin with `$` character, for example:
+* **Псевдонимы**: Для улучшения читаемости FSH позволяет пользователю определять псевдонимы для URL и идентификаторов объектов (OID). После определения, в любом месте проекта FSH псевдоним может использоваться в большинстве мест, где требуется или принимается URL или OID. См. [Определение псевдонимов](reference.html#defining-aliases) для подробностей. По соглашению псевдонимы часто начинаются с символа `$`, например:
 
   ```
   Alias: $SCT = http://snomed.info/sct
   ```
 
-* **Coded Data Types**: A leading hash sign (`#`) (*aka* number sign, pound sign, or octothorpe) is used in FSH to denote a code taken from a formal terminology. FSH provides special grammar for expressing FHIR's coded data types (code, Coding, and CodeableConcept) that combines the code system, code, and (optionally) a display text. Here is a SNOMED-CT code in this syntax, using the previously-defined alias:
+* **Типы кодированных данных**: Начальный знак решетки (`#`) используется в FSH для обозначения кода, взятого из формальной терминологии. FSH предоставляет специальную грамматику для выражения типов кодированных данных FHIR (code, Coding и CodeableConcept), которая объединяет систему кодов, код и (опционально) отображаемый текст. Вот код SNOMED-CT в этом синтаксисе, использующий ранее определенный псевдоним:
 
   ```
   $SCT#363346000 "Malignant neoplastic disease (disorder)"
   ```
 
-### Defining Items in FSH
+### Определение элементов в FSH
 
-FSH items represent FHIR artifacts such as profiles, value sets, and extensions. They are defined in three parts: (1) a declaration, (2) a set of keywords, and (3) a set of rules.
+Элементы FSH представляют артефакты FHIR, такие как профили, наборы значений и расширения. Они определяются в трех частях: (1) объявление, (2) набор ключевых слов и (3) набор правил.
 
-#### Declarations
+#### Объявления
 
-Declarations introduce and name new FSH items. Declarations are always the first statement in a FSH item. There are [eleven declarations in FSH](reference.html#declaration-statements). Frequently-used declarations include `Profile`, `Extension`, `ValueSet`, and `Instance`. Here are two examples of declaration statements:
+Объявления представляют и именуют новые элементы FSH. Объявления всегда являются первым оператором в элементе FSH. В FSH есть [одиннадцать объявлений](reference.html#declaration-statements). Часто используемые объявления включают `Profile`, `Extension`, `ValueSet` и `Instance`. Вот два примера операторов объявления:
 
 ```
 Profile: CancerDiseaseStatus
@@ -55,9 +55,9 @@ Profile: CancerDiseaseStatus
 ValueSet: ConditionStatusTrendVS
 ```
 
-#### Keywords
+#### Ключевые слова
 
-Following the declaration, each FSH item has a set of required and optional keywords, as detailed in the [FSH Language Reference](reference.html#keyword-statements). This example uses the keywords `Parent`, `Id`, `Title`, and `Description` following the `Profile` declaration:
+После объявления каждый элемент FSH имеет набор обязательных и необязательных ключевых слов, как подробно описано в [Справочнике по языку FSH](reference.html#keyword-statements). Этот пример использует ключевые слова `Parent`, `Id`, `Title` и `Description` после объявления `Profile`:
 
 ```
 Profile: CancerDiseaseStatus
@@ -67,11 +67,11 @@ Title:   "Cancer Disease Status"
 Description: "A clinician's qualitative judgment on the current trend of the cancer, e.g., whether it is stable, worsening (progressing), or improving (responding)."
 ```
 
-#### Rules
+#### Правила
 
-The keyword section is followed by a number of rules. Rules are the mechanism for constraining a profile, defining an extension, creating slices, and more. All FSH rules begin with an asterisk. Here is a non-exhaustive summary of some of the more important rules in FSH:
+Раздел ключевых слов сопровождается рядом правил. Правила являются механизмом для ограничения профиля, определения расширения, создания срезов и многого другого. Все правила FSH начинаются со звездочки. Вот неполное резюме некоторых из наиболее важных правил в FSH:
 
-* **Assignment rules** are used to set fixed values in instances and required patterns in profiles. For example:
+* **Правила присваивания** используются для установки фиксированных значений в экземплярах и обязательных шаблонов в профилях. Например:
 
   ```
   * bodySite.text = "Left ventricle"
@@ -89,17 +89,17 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * valueQuantity = UCUM#mm "millimeters"
   ```
 
-* **Binding rules** are used on elements with coded values to specify the set of enumerated values for that element. Binding rules include [one of FHIR's binding strengths](https://hl7.org/fhir/R5/valueset-binding-strength.html): `example`, `preferred`, `extensible`, or `required`. For example:
+* **Правила привязки** используются для элементов с кодированными значениями для указания набора перечисленных значений для этого элемента. Правила привязки включают [одну из сил привязки FHIR](https://hl7.org/fhir/R5/valueset-binding-strength.html): `example`, `preferred`, `extensible` или `required`. Например:
 
   ```
   * gender from http://hl7.org/fhir/ValueSet/administrative-gender (required)
   ```
 
   ```
-  * address.state from USPSTwoLetterAlphabeticCodes (extensible)  // USPSTwoLetterAlphabeticCodes is a value set defined in US Core
+  * address.state from USPSTwoLetterAlphabeticCodes (extensible)  // USPSTwoLetterAlphabeticCodes это набор значений, определенный в US Core
   ```
 
-* **Cardinality rules** constrain the number of occurrences of an element, either both upper and lower bounds, or just upper or lower bound. For example:
+* **Правила кардинальности** ограничивают количество вхождений элемента, либо как верхние, так и нижние границы, либо только верхние или нижние границы. Например:
 
   ```
   * note 1..1
@@ -113,25 +113,25 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * note ..1
   ```
 
-* **Contains rules** are used for slicing and extensions. Both cases involve specifying the type of elements that can appear in arrays.
+* **Правила содержания** используются для нарезки и расширений. Оба случая включают указание типа элементов, которые могут появляться в массивах.
 
-  The following rule slices `Observation.component` into the two components of blood pressure:
+  Следующее правило нарезает `Observation.component` на два компонента артериального давления:
 
   ```
   * component contains systolicBP 1..1 and diastolicBP 1..1
   ```
 
-  The syntax for extensions is similar, except a modified syntax that assigns local name to the extension must be used:
+  Синтаксис для расширений аналогичен, за исключением модифицированного синтаксиса, который присваивает локальное имя расширению:
 
   ```
-  // Adding standard FHIR extensions in an AllergyIntolerance profile:
+  // Добавление стандартных расширений FHIR в профиль AllergyIntolerance:
 
   * extension contains
       allergyintolerance-certainty named substanceCertainty 0..1 and
       allergyintolerance-resolutionAge named resolutionAge 0..1
   ```
 
-* **Flag rules** add bits of information about elements impacting how implementers should handle them. The flags are those [defined in FHIR](https://hl7.org/fhir/R5/formats.html#table), except FSH uses `MS` for must-support and `SU` for summary. For example:
+* **Правила флагов** добавляют биты информации об элементах, влияющие на то, как разработчики должны с ними обращаться. Флаги - это те, которые [определены в FHIR](https://hl7.org/fhir/R5/formats.html#table), за исключением того, что FSH использует `MS` для must-support и `SU` для summary. Например:
 
   ```
   * communication MS SU
@@ -141,7 +141,7 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * identifier and identifier.system and identifier.value MS
   ```
 
-* **Type rules** restrict the type of value that can be assigned to an element. For example:
+* **Правила типов** ограничивают тип значения, которое может быть присвоено элементу. Например:
 
   ```
   * value[x] only CodeableConcept
@@ -159,9 +159,9 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * recorder only Reference(Practitioner or PractitionerRole)
   ```
 
-* **Value set rules** are used to populate value sets. These rules can be defined two ways:
+* **Правила наборов значений** используются для заполнения наборов значений. Эти правила могут быть определены двумя способами:
 
-  [Extensional](https://blog.healthlanguage.com/the-difference-between-intensional-and-extensional-value-sets) rules list individual codes to be included and/or excluded, for example:
+  [Экстенсиональные](https://blog.healthlanguage.com/the-difference-between-intensional-and-extensional-value-sets) правила перечисляют отдельные коды для включения и/или исключения, например:
 
   ```
   * include $SCT#54102005 "G1 grade (finding)"
@@ -171,7 +171,7 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * exclude $SCT#12619005 "Tumor grade GX"
   ```
 
-  [Intensional](https://blog.healthlanguage.com/the-difference-between-intensional-and-extensional-value-sets) rules define the value set contents indirectly, for example:
+  [Интенсиональные](https://blog.healthlanguage.com/the-difference-between-intensional-and-extensional-value-sets) правила определяют содержимое набора значений косвенно, например:
 
   ```
   * include codes from system http://www.nlm.nih.gov/research/umls/rxnorm
@@ -189,9 +189,9 @@ The keyword section is followed by a number of rules. Rules are the mechanism fo
   * exclude codes from valueset EndStageRenalDiseaseVS
   ```
 
-### Line-by-Line Walkthrough
+### Пошаговый разбор
 
-In this section, we will walk through a realistic example of FSH, line by line. This example does not show all the features of the FSH language.
+В этом разделе мы пройдем через реалистичный пример FSH, строка за строкой. Этот пример не показывает все возможности языка FSH.
 
 ```
 1   Alias: $LNC = http://loinc.org
@@ -251,75 +251,74 @@ In this section, we will walk through a realistic example of FSH, line by line. 
 55  * $SCT#386344002 "Laboratory data interpretation (procedure)"
 ```
 
-* Lines 1 and 2 define aliases for the LOINC and SNOMED-CT code systems.
-* Line 4 declares the intent to create a profile with the name `CancerDiseaseStatus`. The name is typically PascalCase (also known as UpperCamelCase) and according to FHIR, should be "[usable by machine processing applications such as code generation](https://hl7.org/fhir/structuredefinition.html#resource)".
-* Line 5 says that this profile will be based on Observation.
-* Line 6 gives an id for this profile. The id is used to create the globally unique URL for the profile. The URL is composed of the IG’s canonical URL, the instance type (always `StructureDefinition` for profiles), and the profile’s id.
-* Line 7 is a human-readable title for the profile.
-* Line 8 is the description that will appear in the IG on the profile's page.
-* Line 9 is the start of the rule section of the profile. It uses [caret syntax](reference.html#caret-paths) to set the `status` attribute in the StructureDefinition produced for this profile.
-* Line 10 adds an extension to the profile using the standalone extension, `EvidenceType`, gives it the local name `evidenceType`, and assigns the cardinality 0..*. _EvidenceType is defined on line 31._
-* Line 11 binds the `valueCodeableConcept` of the `evidenceType` extension to a value set named `CancerDiseaseStatusEvidenceTypeVS` with a required binding strength. _CancerDiseaseStatusEvidenceTypeVS is defined on line 47._
-* Line 12 designates a list of elements (inherited from Observation) as must-support.
-* Lines 13 to 20 constrain the cardinality of some inherited elements. FSH does not support setting the cardinality of a multiple items at a time, so these must be separate statements.
-* Lines 21 and 22 restrict the choice of resource types for two elements that refer to other resources.
-* Line 23 fixes the value of the code attribute to a specific LOINC code, using an alias for the code system defined on line 1.
-* Lines 24 to 25 reduce an inherited choice of resource references down to instances that conform specific profiles (which must be defined, but are external to this example)
-* Line 26 is similar to lines 24 and 25, but the reference is to an external profile.
-* Line 27 and 28 restrict the data type for elements that offer a choice of data types in the base resource.
-* Line 29 binds the remaining allowed data type for `value[x]`, a CodeableConcept, to the value set `ConditionStatusTrendVS` with a required binding. _ConditionStatusTrendVS is defined on line 37._
-* Line 31 declares an extension named `EvidenceType`.
-* Line 32 assigns an id to the extension.
-* Line 33 gives the extension a human-readable title.
-* Line 34 gives the extension a description that will appear on the extension's main page.
-* Line 35 begins the rule section for the extension, and restricts the data type of the `value[x]` element of the extension to a CodeableConcept.
-* Line 37 declares a value set named `ConditionStatusTrendVS`.
-* Line 38 gives the value set an id.
-* Line 39 provides a human readable title for the value set.
-* Line 40 gives the value set a description that will appear on the value set's main page.
-* Lines 41 to 45 define the codes that are members of the value set.
-* Lines 47 to 55 create another value set, `CancerDiseaseStatusEvidenceTypeVS`, similar to the previous one.
+* Строки 1 и 2 определяют псевдонимы для систем кодов LOINC и SNOMED-CT.
+* Строка 4 объявляет намерение создать профиль с именем `CancerDiseaseStatus`. Имя обычно в стиле PascalCase (также известном как UpperCamelCase) и согласно FHIR должно быть "[пригодным для использования приложениями машинной обработки, такими как генерация кода](https://hl7.org/fhir/structuredefinition.html#resource)".
+* Строка 5 говорит, что этот профиль будет основан на Observation.
+* Строка 6 дает id для этого профиля. Id используется для создания глобально уникального URL для профиля. URL состоит из канонического URL IG, типа экземпляра (всегда `StructureDefinition` для профилей) и id профиля.
+* Строка 7 - это человекочитаемое название профиля.
+* Строка 8 - это описание, которое появится в IG на странице профиля.
+* Строка 9 - это начало раздела правил профиля. Она использует [синтаксис крышки](reference.html#caret-paths) для установки атрибута `status` в StructureDefinition, созданном для этого профиля.
+* Строка 10 добавляет расширение к профилю, используя автономное расширение `EvidenceType`, дает ему локальное имя `evidenceType` и назначает кардинальность 0..*. _EvidenceType определен в строке 31._
+* Строка 11 привязывает `valueCodeableConcept` расширения `evidenceType` к набору значений с именем `CancerDiseaseStatusEvidenceTypeVS` с обязательной силой привязки. _CancerDiseaseStatusEvidenceTypeVS определен в строке 47._
+* Строка 12 обозначает список элементов (унаследованных от Observation) как must-support.
+* Строки 13-20 ограничивают кардинальность некоторых унаследованных элементов. FSH не поддерживает установку кардинальности нескольких элементов одновременно, поэтому это должны быть отдельные операторы.
+* Строки 21 и 22 ограничивают выбор типов ресурсов для двух элементов, которые ссылаются на другие ресурсы.
+* Строка 23 фиксирует значение атрибута code на конкретный код LOINC, используя псевдоним для системы кодов, определенной в строке 1.
+* Строки 24-25 сокращают унаследованный выбор ссылок на ресурсы до экземпляров, соответствующих конкретным профилям (которые должны быть определены, но являются внешними для этого примера)
+* Строка 26 аналогична строкам 24 и 25, но ссылка на внешний профиль.
+* Строки 27 и 28 ограничивают тип данных для элементов, которые предлагают выбор типов данных в базовом ресурсе.
+* Строка 29 привязывает оставшийся разрешенный тип данных для `value[x]`, CodeableConcept, к набору значений `ConditionStatusTrendVS` с обязательной привязкой. _ConditionStatusTrendVS определен в строке 37._
+* Строка 31 объявляет расширение с именем `EvidenceType`.
+* Строка 32 назначает id расширению.
+* Строка 33 дает расширению человекочитаемое название.
+* Строка 34 дает расширению описание, которое появится на главной странице расширения.
+* Строка 35 начинает раздел правил для расширения и ограничивает тип данных элемента `value[x]` расширения до CodeableConcept.
+* Строка 37 объявляет набор значений с именем `ConditionStatusTrendVS`.
+* Строка 38 дает набору значений id.
+* Строка 39 предоставляет человекочитаемое название для набора значений.
+* Строка 40 дает набору значений описание, которое появится на главной странице набора значений.
+* Строки 41-45 определяют коды, которые являются членами набора значений.
+* Строки 47-55 создают другой набор значений, `CancerDiseaseStatusEvidenceTypeVS`, похожий на предыдущий.
 
-A few things to note about this example:
+Несколько замечаний об этом примере:
 
-* The order of the items (aliases, profile, value set, extension) doesn't matter. In FSH, you can refer to items defined before or after the current item. By convention, aliases appear at the beginning of a file.
-* The example assumes the items are all in one file, but they could be in separate files. The allocation of items to files is the author's choice. Aliases defined in one file can be used in other files.
-* Most of the rules refer to elements by their FHIR names, but when the rule refers to an element that is not at the top level, more complex paths are required. An example of a complex path occurs on line 11, `extension[evidenceType].valueCodeableConcept`. The Language Reference contains [further descriptions of paths](reference.html#fsh-paths).
+* Порядок элементов (псевдонимы, профиль, набор значений, расширение) не имеет значения. В FSH вы можете ссылаться на элементы, определенные до или после текущего элемента. По соглашению псевдонимы появляются в начале файла.
+* Пример предполагает, что все элементы находятся в одном файле, но они могут быть в отдельных файлах. Распределение элементов по файлам - это выбор автора. Псевдонимы, определенные в одном файле, могут использоваться в других файлах.
+* Большинство правил ссылаются на элементы по их именам FHIR, но когда правило ссылается на элемент, который не находится на верхнем уровне, требуются более сложные пути. Пример сложного пути встречается в строке 11, `extension[evidenceType].valueCodeableConcept`. В Справочнике по языку содержатся [дальнейшие описания путей](reference.html#fsh-paths).
 
-### FSH in Practice
+### FSH на практике
 
-This section presents an overview of how the FSH language is put into practice using [SUSHI](https://fshschool.org). [SUSHI](https://fshschool.org/docs/sushi/) (an acronym for "**S**USHI **U**nshortens **SH**orthand **I**nputs") is a reference implementation and _de facto_ standard for a FSH compiler that translates FSH into FHIR artifacts such as profiles, extensions, and value sets.
+Этот раздел представляет обзор того, как язык FSH применяется на практике с использованием [SUSHI](https://fshschool.org). [SUSHI](https://fshschool.org/docs/sushi/) (аббревиатура от "**S**USHI **U**nshortens **SH**orthand **I**nputs") - это эталонная реализация и _де-факто_ стандарт для компилятора FSH, который переводит FSH в артефакты FHIR, такие как профили, расширения и наборы значений.
 
-The discussion in this section refers to the numbers in the following figure:
+Обсуждение в этом разделе относится к номерам на следующем рисунке:
 
-<img src="Workflow.png" alt="Overall FSH Workflow" width="800px" style="float:none; margin: 0px 0px 0px 0px;" />
+<img src="Workflow.png" alt="Общий рабочий процесс FSH" width="800px" style="float:none; margin: 0px 0px 0px 0px;" />
 
-#### Install SUSHI
+#### Установка SUSHI
 
-The process for installing SUSHI is described [here](https://fshschool.org/docs/sushi/installation/). A text editor is also needed. [Visual Studio Code](https://code.visualstudio.com/) has a useful [FSH plug-in](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh) that knows FSH syntax and colorizes text accordingly.
+Процесс установки SUSHI описан [здесь](https://fshschool.org/docs/sushi/installation/). Также необходим текстовый редактор. [Visual Studio Code](https://code.visualstudio.com/) имеет полезный [плагин FSH](https://marketplace.visualstudio.com/items?itemName=MITRE-Health.vscode-language-fsh), который знает синтаксис FSH и соответственно окрашивает текст.
 
-#### Create a New Project
+#### Создание нового проекта
 
-To set up a directory structure for your IG, run `sushi init` at a command prompt. This will create the [specific project structure](https://fshschool.org/docs/sushi/project/) required by the IG Publisher. 
+Чтобы настроить структуру каталогов для вашего IG, запустите `sushi init` в командной строке. Это создаст [конкретную структуру проекта](https://fshschool.org/docs/sushi/project/), требуемую IG Publisher.
 
-#### Author FSH Files
+#### Создание файлов FSH
 
-Content written in FSH is stored in plain text files (ASCII or UTF-8) with the `.fsh` extension (1). Any text editor can be used to create a FSH file. SUSHI lets the author decide how to allocate FSH definitions to **.fsh** files. Here are some possibilities:
+Содержание, написанное на FSH, хранится в простых текстовых файлах (ASCII или UTF-8) с расширением `.fsh` (1). Любой текстовый редактор может использоваться для создания файла FSH. SUSHI позволяет автору решать, как распределить определения FSH по файлам **.fsh**. Вот некоторые возможности:
 
-* One file per item
-* All profile definitions in one file, all value set definitions in another, all extensions in another, etc.
-* Group related items in one file, e.g., a profile together with its value sets, extensions, and examples
-* Create subdirectories for each type of item (profiles, extensions, value sets), with separate files for each item of the corresponding type inside those subdirectories.
+* Один файл на элемент
+* Все определения профилей в одном файле, все определения наборов значений в другом, все расширения в третьем и т.д.
+* Группировка связанных элементов в одном файле, например, профиль вместе с его наборами значений, расширениями и примерами
+* Создание подкаталогов для каждого типа элемента (профили, расширения, наборы значений) с отдельными файлами для каждого элемента соответствующего типа внутри этих подкаталогов.
 
-#### Run SUSHI and/or HL7 IG Publisher
+#### Запуск SUSHI и/или HL7 IG Publisher
 
-Before running SUSHI, you must have a [configuration file named **sushi-config.yaml**](https://fshschool.org/docs/sushi/configuration/) (2) containing some basic information about the project, such as its canonical URL.
+Перед запуском SUSHI у вас должен быть [файл конфигурации с именем **sushi-config.yaml**](https://fshschool.org/docs/sushi/configuration/) (2), содержащий основную информацию о проекте, такую как его канонический URL.
 
-When SUSHI runs (3), it gathers all FSH files from the given input directory's **input/fsh** subdirectory (1), and writes generated FHIR JSON artifacts to a given output directory (4). The input and output directories appear as SUSHI command line arguments. If unspecified, the input directory will default to the current directory, and outputs will be written to **./fsh-generated**.
+Когда SUSHI запускается (3), он собирает все файлы FSH из подкаталога **input/fsh** данного входного каталога (1) и записывает сгенерированные артефакты FHIR JSON в данный выходной каталог (4). Входной и выходной каталоги появляются как аргументы командной строки SUSHI. Если не указаны, входной каталог по умолчанию будет текущим каталогом, а выходы будут записаны в **./fsh-generated**.
 
-SUSHI can be run from the command line or invoked as part of the [HL7 FHIR IG Publisher](https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation) (6). The latter requires some additional configuration information and other IG data (5). If there are no FSH files in the project's **[root]/input/fsh** folder(1), the IG Publisher will not run SUSHI. The generated SUSHI output is found in the **[root]/fsh-generated** directory (4), and the implementation guide itself (7) is located in **[root]/output**.
+SUSHI может запускаться из командной строки или вызываться как часть [HL7 FHIR IG Publisher](https://confluence.hl7.org/display/FHIR/IG+Publisher+Documentation) (6). Последнее требует дополнительной информации о конфигурации и других данных IG (5). Если в папке **[корень]/input/fsh** проекта нет файлов FSH (1), IG Publisher не будет запускать SUSHI. Сгенерированный вывод SUSHI находится в каталоге **[корень]/fsh-generated** (4), а само руководство по внедрению (7) расположено в **[корень]/output**.
 
-For more information on the use of SUSHI and the IG Publisher, see [the SUSHI Documentation](https://fshschool.org/docs/sushi/).
+Для получения дополнительной информации об использовании SUSHI и IG Publisher см. [Документацию SUSHI](https://fshschool.org/docs/sushi/).
 
-
-**[Continue to FSH Language Specification ->](reference.html)**
+**[Продолжить к спецификации языка FSH ->](reference.html)**
