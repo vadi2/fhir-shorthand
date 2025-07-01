@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0">
+  <file source-language="en" target-language="ru" id="ImplementationGuide-hl7.fhir.uv.shorthand" original="Resource ImplementationGuide-hl7.fhir.uv.shorthand" datatype="KEYVALUEJSON">
+    <body>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.name">
+             <notes>
+               <note id="n1">A natural language name identifying the implementation guide. This name should be usable as an identifier for the module by machine processing applications such as code generation.</note>
+             </notes>
+        <source>FHIRShorthand</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.title">
+             <notes>
+               <note id="n1">A short, descriptive, user-friendly title for the implementation guide.</note>
+             </notes>
+        <source>FHIR Shorthand</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.publisher">
+             <notes>
+               <note id="n1">The name of the organization or individual that published the implementation guide.</note>
+             </notes>
+        <source>HL7 International / FHIR Infrastructure</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.description">
+             <notes>
+               <note id="n1">A free text natural language description of the implementation guide from a consumer's perspective.</note>
+             </notes>
+        <source>Describes FHIR Shorthand (FSH), a domain-specific language (DSL) for defining the content of FHIR Implementation Guides (IG).</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="Coding.display">
+             <notes>
+               <note id="n1">A representation of the meaning of the code in the system, following the rules of the system.</note>
+             </notes>
+        <source>World</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.definition.page.title">
+             <notes>
+               <note id="n1">A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.</note>
+             </notes>
+        <source>Table of Contents</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.definition.page.title">
+             <notes>
+               <note id="n1">A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.</note>
+             </notes>
+        <source>FHIR Shorthand</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.definition.page.title">
+             <notes>
+               <note id="n1">A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.</note>
+             </notes>
+        <source>Overview</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.definition.page.title">
+             <notes>
+               <note id="n1">A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.</note>
+             </notes>
+        <source>Language Reference</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="ImplementationGuide-hl7.fhir.uv.shorthand" resname="ImplementationGuide.definition.page.title">
+             <notes>
+               <note id="n1">A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.</note>
+             </notes>
+        <source>Change Log</source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
